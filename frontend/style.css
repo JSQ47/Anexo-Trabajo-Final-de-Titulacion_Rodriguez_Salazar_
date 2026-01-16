@@ -1,0 +1,355 @@
+:root {
+    --primary: #2d5a27;
+    --primary-light: #4a7c44;
+    --secondary: #d4a373;
+    --accent: #e9edc9;
+    --background: #fefae0;
+    --card-bg: #ffffff;
+    --text-main: #283618;
+    --text-muted: #606c38;
+    --danger: #bc4749;
+    --warning: #f1c40f;
+    --success: #2d5a27;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --radius: 16px;
+}
+
+.hidden-section {
+    display: none !important;
+}
+
+.active-section {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    color: var(--text-main);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Mobile Toggle Button */
+#menu-toggle {
+    display: none;
+    /* Hidden on desktop */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    width: 48px;
+    height: 48px;
+    background: var(--primary);
+    border-radius: 50%;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 0;
+}
+
+/* Sidebar Overlay */
+#sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Layout Structure */
+.sidebar {
+    width: 280px;
+    background-color: var(--primary);
+    color: white;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+}
+
+.main-content {
+    margin-left: 280px;
+    flex: 1;
+    padding: 40px;
+    width: 100%;
+    /* Large Screen Optimization: Centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Wrapper to limit content width on large screens */
+.main-content>section {
+    width: 100%;
+    max-width: 1400px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 60px;
+}
+
+.nav-item {
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-item.active {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.nav-item:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Monitor Components */
+header {
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.grid {
+    display: grid;
+    /* Adjusted for better filling on large screens */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary);
+}
+
+/* Forms */
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 2px solid #edede9;
+    font-family: inherit;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-light);
+}
+
+button {
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+button:hover {
+    background-color: var(--primary-light);
+    box-shadow: 0 4px 12px rgba(45, 90, 39, 0.2);
+}
+
+button:disabled {
+    background-color: #a5bfa3;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background-color: var(--card-bg);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    margin-bottom: 20px;
+}
+
+.btn-secondary:hover {
+    background-color: #f0fdf4;
+    box-shadow: none;
+}
+
+/* Results Box */
+.result-box {
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.diagnostico-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 8px 0;
+}
+
+.diagnostico-item:last-child {
+    border-bottom: none;
+}
+
+.diagnostico-label {
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* New UI Elements */
+#image-preview {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: none;
+    border: 2px dashed #edede9;
+}
+
+.spinner {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 3px solid #ffffff;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Mobile */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 80px 20px 20px 20px;
+        /* Top padding for menu button space if needed */
+    }
+
+    #menu-toggle {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}

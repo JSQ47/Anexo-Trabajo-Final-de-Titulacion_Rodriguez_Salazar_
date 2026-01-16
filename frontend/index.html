@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSS Tizon Tardio - Monitor Agrícola</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z' fill='%23e9edc9'/><path d='M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z' fill='%232d5a27'/></svg>">
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    fill="#e9edc9" />
+                <path
+                    d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z"
+                    fill="#2d5a27" />
+            </svg>
+            DSS Planta de papas
+        </div>
+        <a href="#" class="nav-item active" onclick="showSection('monitor', this); return false;">
+            <span>📊 Monitor</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('history', this); return false;">
+            <span>📸 Historial</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showSection('forecast', this); return false;">
+            <span>☁️ Pronóstico</span>
+        </a>
+        <div style="margin-top: auto; font-size: 12px; opacity: 0.6; padding-left: 16px;">
+            Universidad Politécnica Salesiana • 2025
+        </div>
+    </div>
+
+    <button id="menu-toggle" aria-label="Abrir menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h18M3 6h18M3 18h18" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <div id="sidebar-overlay"></div>
+
+    <main class="main-content">
+        <!-- SECCIÓN MONITOR -->
+        <section id="sec-monitor" class="active-section">
+            <header>
+                <h1>Monitor de Cultivo</h1>
+                <p style="color: var(--text-muted);">Sistema de Soporte a Decisiones para Tizón Tardío</p>
+            </header>
+
+            <div class="grid">
+                <!-- SECCIÓN 1: DIAGNÓSTICO POR IMAGEN -->
+                <section class="card">
+                    <h2>Diagnóstico por Imagen</h2>
+                    <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 14px;">
+                        Sube una foto de la hoja para que el modelo lo identifique.
+                    </p>
+
+                    <div class="input-group">
+                        <label for="input">Imagen de la Hoja</label>
+                        <input type="file" id="input" accept="image/*">
+                    </div>
+
+                    <img id="image-preview" src="#" alt="Vista previa" />
+
+                    <button onclick="analizar()" id="btn-analizar">
+                        <span>⚡ Analizar Imagen</span>
+                    </button>
+
+                    <div id="output" class="result-box"
+                        style="display:none; background: #f8f9fa; border: 1px solid #e9ecef;"></div>
+                </section>
+
+                <!-- SECCIÓN 2: MONITOR DE RIESGO CLIMÁTICO -->
+                <section class="card">
+                    <h2>Riesgo: Tizón Tardío</h2>
+                    <p style="margin-bottom: 20px; color: var(--text-muted); font-size: 14px;">
+                        Cálculo de riesgo basado en Arbol de Decisión.
+                    </p>
+
+                    <button onclick="obtenerClima()" id="btn-geo" class="btn-secondary">
+                        <span>📍 Usar mi ubicación actual</span>
+                    </button>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group">
+                            <label>Temperatura (°C)</label>
+                            <input type="number" id="temp" placeholder="18">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Humedad (%)</label>
+                            <input type="number" id="humedad" placeholder="92">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group">
+                            <label>¿Llueve?</label>
+                            <select id="lluvia">
+                                <option value="no">No</option>
+                                <option value="si">Sí</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Horas Críticas</label>
+                            <input type="number" id="horas" placeholder="4">
+                        </div>
+                    </div>
+
+                    <button onclick="calcularRiesgo()" id="btn-riesgo">
+                        <span>🔍 Calcular Riesgo</span>
+                    </button>
+
+                    <div id="resultado-clima" class="result-box"
+                        style="display:none; text-align: center; font-weight: 600;"></div>
+                </section>
+            </div>
+        </section>
+
+        <!-- SECCIÓN HISTORIAL -->
+        <section id="sec-history" class="hidden-section">
+            <header style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1>Historial de Diagnósticos</h1>
+                    <p style="color: var(--text-muted);">Registro local de imágenes y análisis previos.</p>
+                </div>
+                <button onclick="clearHistory()" style="background-color: #d63031; padding: 8px 16px; font-size: 14px;">
+                    🗑️ Borrar Todo
+                </button>
+            </header>
+            <div id="history-grid" class="grid">
+                <!-- Se llenará con JS -->
+                <p style="color: var(--text-muted);">No hay diagnósticos guardados aún.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN PRONÓSTICO -->
+        <section id="sec-forecast" class="hidden-section">
+            <header>
+                <h1>Pronóstico 5 Días</h1>
+                <p style="color: var(--text-muted);">Planificación de fumigación basada en lluvias.</p>
+            </header>
+            <div id="forecast-container" class="grid">
+                <!-- Se llenará con JS -->
+                <p>Cargando pronóstico...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js?v=3"></script>
+</body>
+
+</html>
